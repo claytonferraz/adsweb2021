@@ -9,7 +9,7 @@ if (session_status() !== PHP_SESSION_ACTIVE)
 if(!isset($_SESSION['usuarioCPF']) && !isset($_SESSION['usuarioNome']) && !isset($_SESSION['usuarioPermissao']) && !isset($_SESSION['usuarioNivelAcesso']) && !isset($_SESSION['usuarioCNPJ']))
 {
     // Usuário não logado! Redireciona para a página de login
-    header("Location: https://termonline.com.br/admin/login.php");
+    header("Location: https://localhost/admin/login.php");
     exit;
 }
 ?>
