@@ -1,4 +1,4 @@
-<?php
+<?php//a merda do login
 if (session_status() !== PHP_SESSION_ACTIVE)
 {
     session_cache_expire(60);
