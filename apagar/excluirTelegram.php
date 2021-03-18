@@ -10,11 +10,11 @@ if(isset($_GET['chat']))
     $sql = "DELETE FROM telegram WHERE chat_id='$chat' AND fk_cliente_cnpj='$cnpj'";
     if(mysqli_query($con, $sql))
     {
-        header("Location: https://localhost/admin/listarTelegram.php");
+        header("Location: http://localhost/admin/listarTelegram.php");
     }
     else
     {
-        echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/listarTelegram.php'>
+        echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/listarTelegram.php'>
             <script type='text/javascript'>
             alert('Erro ao tentar excluir um telegram');
             </script>
@@ -24,7 +24,7 @@ if(isset($_GET['chat']))
 }
 else
 {
-    echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/listarTelegram.php'>
+    echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/listarTelegram.php'>
             <script type='text/javascript'>
             alert('Erro ao tentar excluir um telegram');
             </script>

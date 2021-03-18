@@ -20,7 +20,7 @@ if((isset($_POST['hora'])) && (isset($_POST['termometro'])) && (isset($_POST['mi
     else
     {
         echo "
-            <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/listarHorarios.php?id=. $id .'>
+            <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/listarHorarios.php?id=. $id .'>
             <script type='text/javascript'>
             alert('Erro ao atualizar horario');
             </script>
@@ -31,7 +31,7 @@ if((isset($_POST['hora'])) && (isset($_POST['termometro'])) && (isset($_POST['mi
 else
 {
     echo "
-        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/listarHorarios.php'>
+        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/listarHorarios.php'>
         <script type='text/javascript'>
         alert('Todos os campos obrigatorios precisam ser preencidos');
         </script>

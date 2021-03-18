@@ -22,7 +22,7 @@
 
         if($senha != $confirmaSenha)
         {
-            echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/addUsuario.php'>
+            echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/addUsuario.php'>
             <script type='text/javascript'> alert('Sua senha deve ser igual a confirmada!');
             </script>
             ";
@@ -35,7 +35,7 @@
 
             if(mysqli_query($con, $sql))
             {
-                echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/addUsuario.php'>
+                echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/addUsuario.php'>
             <script type='text/javascript'> alert('Usuario salva com sucesso!');
             </script>
             ";
@@ -43,7 +43,7 @@
             else
             {
                 echo "
-            <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/addUsuario.php'>
+            <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/addUsuario.php'>
             <script type='text/javascript'>
             alert('Erro ao salvar usuario');
             </script>
@@ -54,7 +54,7 @@
     else
     {
         echo "
-        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/addUsuario.php'>
+        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/addUsuario.php'>
         <script type='text/javascript'>
         alert('Todos os campos obrigatorios precisam ser preencidos');
         </script>

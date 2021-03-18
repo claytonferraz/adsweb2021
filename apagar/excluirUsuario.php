@@ -10,11 +10,11 @@ if(isset($_GET['id']))
     $sql = "DELETE FROM usuarios WHERE cpf='$id' AND fk_cliente_cnpj='$cnpj'";
     if(mysqli_query($con, $sql))
     {
-        header("Location: https://localhost/admin/listarUsuario.php");
+        header("Location: http://localhost/admin/listarUsuario.php");
     }
     else
     {
-        echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/listarUsuario.php'>
+        echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/listarUsuario.php'>
             <script type='text/javascript'>
             alert('Erro ao tentar excluir usuario');
             </script>
@@ -24,7 +24,7 @@ if(isset($_GET['id']))
 }
 else
 {
-    echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/listarUsuario.php'>
+    echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/listarUsuario.php'>
             <script type='text/javascript'>
             alert('Erro ao tentar excluir usuario');
             </script>

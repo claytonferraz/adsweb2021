@@ -21,7 +21,7 @@
 
         if(mysqli_query($con, $sql))
         {
-            echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/addChaID.php'>
+            echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/addChaID.php'>
         <script type='text/javascript'> alert('ChatID cadastrado com sucesso!');
         </script>
         ";
@@ -29,7 +29,7 @@
         else
         {
             echo "
-        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/addChaID.php'>
+        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/addChaID.php'>
         <script type='text/javascript'>
         alert('Um erro foi encontrado ao tentar salvar o ChatID');
         </script>
@@ -39,7 +39,7 @@
     else
     {
         echo "
-        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/addChaID.php'>
+        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/addChaID.php'>
         <script type='text/javascript'>
         alert('Todos os campos obrigatorios precisam ser preencidos');
         </script>

@@ -18,14 +18,14 @@
 
             if(mysqli_query($con, $sql))
             {
-                echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/addHorarios.php'>
+                echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/addHorarios.php'>
                 <script type='text/javascript'> alert('Horario salva com sucesso!');
                 </script>
                 ";
             }
             else
             {
-                echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/addHorarios.php'>
+                echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/addHorarios.php'>
                 <script type='text/javascript'>
                 alert('Erro ao salvar horario');
                 </script>
@@ -34,7 +34,7 @@
         }
         else
         {
-            echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/addHorarios.php'>
+            echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/addHorarios.php'>
             <script type='text/javascript'>
             alert('O horario escolhido ja esta cadastrado para esse termometro');
             </script>
@@ -45,7 +45,7 @@
     else
     {
         echo "
-        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/addTermometro.php'>
+        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/addTermometro.php'>
         <script type='text/javascript'>
         alert('Todos os campos obrigatorios precisam ser preencidos');
         </script>

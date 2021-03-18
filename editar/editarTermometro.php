@@ -25,7 +25,7 @@ if(!empty($_POST['cod']) && !empty($_POST['t_minimo']) && !empty($_POST['t_maxim
         }
         else
         {
-            echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/editarTermometro.php'>
+            echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/editarTermometro.php'>
                 <script type='text/javascript'>
                 alert('Erro ao editar Termometro');
                 </script>";
@@ -44,7 +44,7 @@ if(!empty($_POST['cod']) && !empty($_POST['t_minimo']) && !empty($_POST['t_maxim
         else
         {
             echo "
-                <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/editarTermometro.php'>
+                <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/editarTermometro.php'>
                 <script type='text/javascript'>
                 alert('Erro ao editar Termometro');
                 </script>";
@@ -52,7 +52,7 @@ if(!empty($_POST['cod']) && !empty($_POST['t_minimo']) && !empty($_POST['t_maxim
     }
     else
         echo "
-        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/editarTermometro.php'>
+        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/editarTermometro.php'>
         <script type='text/javascript'>
         alert('Verifique se todos os campos foram preenchidos');
         </script>
@@ -61,7 +61,7 @@ if(!empty($_POST['cod']) && !empty($_POST['t_minimo']) && !empty($_POST['t_maxim
 else
 {
     echo "
-        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/editarTermometro.php'>
+        <META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/editarTermometro.php'>
         <script type='text/javascript'>
         alert('Verifique se todos os campos foram preenchidos');
         </script>

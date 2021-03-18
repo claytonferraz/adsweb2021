@@ -14,7 +14,7 @@ if(isset($_POST['cpf']) && (isset($_POST['nome'])) && (isset($_POST['confirma'])
     if ($senha != $senha2)
     {
         echo "
-            <meta http-equiv=REFRESH content='0;URL=https://localhost/admin/listarUsuario.php' />
+            <meta http-equiv=REFRESH content='0;URL=http://localhost/admin/listarUsuario.php' />
             <script type='text/javascript'>
                     alert('O campo de confirmacao possui uma senha diferente');
             </script>
@@ -33,7 +33,7 @@ if(isset($_POST['cpf']) && (isset($_POST['nome'])) && (isset($_POST['confirma'])
             else
             {
                 echo "
-                    <meta http-equiv=REFRESH content='0;URL=https://localhost/admin/dashboard.php' />
+                    <meta http-equiv=REFRESH content='0;URL=http://localhost/admin/dashboard.php' />
                     <script type='text/javascript'>
                                 alert('Erro ao atualizar seu perfil');
                     </script>
@@ -50,7 +50,7 @@ if(isset($_POST['cpf']) && (isset($_POST['nome'])) && (isset($_POST['confirma'])
             else
             {
                 echo "
-                    <meta http-equiv=REFRESH content='0;URL=https://localhost/admin/dashboard.php' />
+                    <meta http-equiv=REFRESH content='0;URL=http://localhost/admin/dashboard.php' />
                     <script type='text/javascript'>
                                 alert('Erro ao atualizar seu perfil');
                     </script>
@@ -65,7 +65,7 @@ if(isset($_POST['cpf']) && (isset($_POST['nome'])) && (isset($_POST['confirma'])
 else
 {
     echo "
-        <meta http-equiv=REFRESH content='0;URL=https://localhost/admin/listarUsuario.php' />
+        <meta http-equiv=REFRESH content='0;URL=http://localhost/admin/listarUsuario.php' />
         <script type='text/javascript'>
                 alert('Todos os campos obrigatórios precisam ser preencidos');
         </script>

@@ -10,11 +10,11 @@ if(isset($_GET['id']))
     $sql = "DELETE FROM termometro WHERE cod='$id' AND fk_cliente_cnpj='$cnpj'";
     if(mysqli_query($con, $sql))
     {
-        header("Location: https://localhost/admin/listarTermometro.php");
+        header("Location: http://localhost/admin/listarTermometro.php");
     }
     else
     {
-        echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/listarTermometro.php'>
+        echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/listarTermometro.php'>
             <script type='text/javascript'>
             alert('Erro ao tentar excluir um termometro');
             </script>
@@ -24,7 +24,7 @@ if(isset($_GET['id']))
 }
 else
 {
-    echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/listarTermometro.php'>
+    echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/listarTermometro.php'>
             <script type='text/javascript'>
             alert('Erro ao tentar excluir um termometro');
             </script>

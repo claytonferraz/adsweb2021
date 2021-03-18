@@ -15,7 +15,7 @@ if(isset($_GET['id']))
     }
     else
     {
-        echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/listarTermometro.php'>
+        echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/listarTermometro.php'>
             <script type='text/javascript'>
             alert('Erro ao tentar excluir um horario');
             </script>
@@ -25,7 +25,7 @@ if(isset($_GET['id']))
 }
 else
 {
-    echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=https://localhost/admin/listarTermometro.php'>
+    echo "<META HTTP-EQUIV=REFRESH CONTENT = '0;URL=http://localhost/admin/listarTermometro.php'>
             <script type='text/javascript'>
             alert('Erro ao tentar excluir um horario');
             </script>
