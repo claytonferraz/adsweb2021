@@ -1,4 +1,4 @@
-<?php//a merda do login
+<?php
 if (session_status() !== PHP_SESSION_ACTIVE)
 {
     session_cache_expire(60);
@@ -10,7 +10,7 @@ if (session_status() !== PHP_SESSION_ACTIVE)
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">        
-        <title>Administrativo - Termonline</title>
+        <title>Administrativo</title>
         <meta name="description" content="Sistema automatizado para termometria. Tenha relatórios em poucos cliques e alertas em tempo real sobre problemas de temperatura." />
         <link rel="apple-touch-icon" href="imagens/favicons/apple-touch-icon.png" sizes="180x180">
         <link rel="icon" href="imagens/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
