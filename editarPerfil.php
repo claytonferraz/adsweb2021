@@ -1,3 +1,4 @@
+//Corrigido
 <?php
 require "classes/verifica.php";
 require_once ('classes/conexao.php');

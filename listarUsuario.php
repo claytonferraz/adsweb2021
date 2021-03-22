@@ -1,20 +1,15 @@
-//corrigido
 <?php
 require "classes/verifica.php";
+if($_SESSION['usuarioNivel'] != 1)
+    header("Location: dashboard.php");
 require_once ('classes/conexao.php');
 $cnpj = $_SESSION['usuarioCNPJ'];
 $meunome = $_SESSION['usuarioNome'];
-$id_inicial = $_GET['id'];
-$sql = "SELECT hora.horario, termo.descricao, fk_termometro_cod
-            FROM termometro AS termo INNER JOIN horarios AS hora ON termo.cod = hora.fk_termometro_cod
-            WHERE hora.fk_cliente_cnpj='$cnpj' AND id_horario=$id_inicial";
-$resultado  = mysqli_query($con, $sql);
-$row_t      = mysqli_fetch_assoc($resultado);
-$descricao  = $row_t ['descricao'];
-$horario    = $row_t ['horario'];
-$termometro = $row_t ['fk_termometro_cod'];
-$hora       = substr($horario, 0, 2);
-$minuto     = substr($horario, 3, 2);
+
+$sql = "SELECT usuarios.cpf, usuarios.nome, usuarios.sobrenome, nivel_acesso.descricao
+        FROM nivel_acesso INNER JOIN usuarios ON usuarios.fk_nivel_acesso_cod = nivel_acesso.cod
+        WHERE usuarios.fk_cliente_cnpj='$cnpj' AND usuarios.fk_permissao_cod>1 ORDER BY usuarios.nome ASC";
+$resultado = mysqli_query($con, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -52,7 +47,9 @@ $minuto     = substr($horario, 3, 2);
                         &nbsp;<span class="d-none d-sm-inline"><?php echo $meunome ?></span>
                     </a>
                     <div class="dropdown-menu" dropdown-menu-lg-right aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" dropdown-menu-lg-right href="editarPerfil.php?id=<?php echo $_SESSION['usuarioCPF'] ?>"><i class="fas fa-user"></i>  Perfil </a>
+                        <a class="dropdown-item" dropdown-menu-lg-right href="editarPerfil.php?id=<?php echo $_SESSION['usuarioCPF'] ?>">
+                            <i class="fas fa-user"></i> Perfil
+                        </a>
                         <a class="dropdown-item" dropdown-menu-lg-right href="classes/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a>
                         <div class="dropdown-divider"></div>
                     </div>
@@ -113,90 +110,63 @@ $minuto     = substr($horario, 3, 2);
             <div class="list-group-item">
                 <div class="d-flex">
                     <div class="mr-auto p-2">
-                        <h2 class="display-4 titulo">Editar Horário</h2>
+                        <h2 class="display-4 titulo">Listar Usuários</h2>
                     </div>
-                    <div class="p-2">
-                        <span class="d-none d-md-block">
-                            <a href="listarHorarios.php" class="btn btn-outline-primary btn-sm">Listar</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#apagarRegistro">Apagar</a>
-                        </span>
-                        <div class="dropdown d-block d-md-none">
-                            <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="acaoListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Ação
+                    <a href="addUsuario.php">
+                        <div class="p-2">
+                            <button class="btn btn-outline-success btn-sm">
+                                Cadastrar
                             </button>
-                            <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="acaoListar">
-                                <a class="dropdown-item" href="listarHorarios.php">Listar</a>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#apagarRegistro">Apagar</a>
-                            </div>
                         </div>
-                    </div>
-                </div><hr />
-                <form action="editar/editarHorario.php?id=<?php echo $id_inicial ?>" method="post">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label>Termômetro</label>
-                            <select name="termometro" class="form-control" required>
-                                <?php
-                                $sql = "SELECT cod, descricao FROM termometro WHERE fk_cliente_cnpj='$cnpj' AND fk_status_termometro_cod=1";
-                                    $termometros = mysqli_query($con, $sql);
-                                    while($row = mysqli_fetch_assoc($termometros))
-                                    {
-                                        $id_termometro = $row['cod'];
-                                        if($termometro != $id_termometro)
-                                        {
-                                            echo '<option value="' . $id_termometro . '">' . $row['descricao'] . '</option>';
-                                        }
-                                        else
-                                        {
-                                            echo '<option selected value="' . $id_termometro . '">' . $row['descricao'] . '</option>';
-                                        }
-                                    }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>Hora</label>
-                            <select name="hora" id="termometro" class="form-control" required>
-                                <option selected value="<?php echo $hora ?>"><?php echo $hora ?></option>
-                                <option>00</option>
-                                <option>01</option>
-                                <option>02</option>
-                                <option>03</option>
-                                <option>04</option>
-                                <option>05</option>
-                                <option>06</option>
-                                <option>07</option>
-                                <option>08</option>
-                                <option>09</option>
-                                <option>10</option>
-                                <option>11</option>
-                                <option>12</option>
-                                <option>13</option>
-                                <option>14</option>
-                                <option>15</option>
-                                <option>16</option>
-                                <option>17</option>
-                                <option>18</option>
-                                <option>19</option>
-                                <option>20</option>
-                                <option>21</option>
-                                <option>22</option>
-                                <option>23</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>Minuto</label>
-                            <select name="minuto" id="termometro" class="form-control" required>
-                                <option selected value="<?php echo $minuto ?>"><?php echo $minuto ?></option>
-                                <option>00</option>
-                                <option>15</option>
-                                <option>30</option>
-                                <option>45</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-success">Atualizar</button>
-                </form>
+                    </a>
+                </div><!--
+                <div class="alert alert-success" role="alert">
+                    Usuário apagado com sucesso!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>-->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="d-nome d-sm-table-cell">CPF</th>
+                                <th>Nome</th>
+                                <th>Sobrenome</th>
+                                <th>Permissão</th>
+                                <th class="text-center">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        while($row = mysqli_fetch_assoc($resultado))
+                        {?>
+                            <tr>
+                                <td><?php $id = $row['cpf']; echo $id ?></td>
+                                <td><?php echo $row['nome'] ?></td>
+                                <td><?php echo $row['sobrenome'] ?></td>
+                                <td><?php echo $row['descricao'] ?></td>
+                                <td class="text-center">
+                                    <span class="d-none d-md-block">
+                                        <a href="editarUsuario.php?id=<?php echo $id ?>" class="btn btn-outline-primary btn-sm">Editar</a>
+                                        <a href="apagar/excluirUsuario.php?id=<?php echo $id ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Tem certeza da exclusão deste usuário?')">Apagar</a>
+                                    </span>
+                                    <div class="dropdown d-block d-md-none">
+                                        <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="acaoListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Ação
+                                        </button>
+                                        <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="acaoListar">
+                                            <a class="dropdown-item" href="editarUsuario.php?id=<?php echo $id ?>">Editar</a>
+                                            <a class="dropdown-item" href="apagar/excluirUsuario.php?id=<?php echo $id ?>" onclick="return confirm('Tem certeza da exclusão deste usuário?')">Apagar</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr><?php
+                        }?>
+                            
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- Fim da área de trabalho -->
@@ -206,13 +176,13 @@ $minuto     = substr($horario, 3, 2);
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="exampleModalLabel">EXCLUIR HORÁRIO</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">EXCLUIR USUÁRIO</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Tem certeza que deseja excluir este horário?
+                    Tem certeza que deseja excluir o usuário selecionado?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
@@ -221,6 +191,7 @@ $minuto     = substr($horario, 3, 2);
             </div>
         </div>
     </div>
+
     <script src="js/jquery-3.2.1.slim.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

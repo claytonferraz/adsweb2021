@@ -1,20 +1,15 @@
-//Corrigido
 <?php
 require "classes/verifica.php";
 require_once ('classes/conexao.php');
-if($_SESSION['usuarioNivel'] != 1)
-    header("Location: dashboard.php");
+//Verifica se o usuário está passando o número da página, se não, ele coloca a primeira página
+//$pagina = (!isset($_GET['pagina']))? $_GET['pagina'] : 1;
 $cnpj = $_SESSION['usuarioCNPJ'];
 $meunome = $_SESSION['usuarioNome'];
-$id = $_GET['id'];
-$sql = "SELECT cpf, nome, sobrenome, fk_nivel_acesso_cod AS permi FROM usuarios
-    WHERE fk_cliente_cnpj='$cnpj' AND cpf='$id'";
-$resultado  = mysqli_query($con, $sql);
-$row_t      = mysqli_fetch_assoc($resultado);
-$cpf        = $row_t ['cpf'];
-$nome       = $row_t ['nome'];
-$sobnome    = $row_t ['sobrenome'];
-$nivel      = $row_t ['permi'];
+
+$sql = "SELECT equipamento.cod, equipamento.descricao, equipamento.t_minimo, equipamento.t_maximo, equipamento.u_minimo, equipamento.u_maximo, status.descricao AS situacao
+FROM status_termometro AS status INNER JOIN termometro AS equipamento ON equipamento.fk_status_termometro_cod = status.cod
+WHERE fk_cliente_cnpj='$cnpj' ORDER BY equipamento.descricao ASC";
+$resultado = mysqli_query($con, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -64,7 +59,6 @@ $nivel      = $row_t ['permi'];
     </nav>
     <div class="d-flex">
         <nav class="sidebar">
-            <nav class="sidebar">
             <ul class="list-unstyled">
                 <li><a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li>
@@ -111,109 +105,90 @@ $nivel      = $row_t ['permi'];
                 <li><a href="classes/sair.php"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
             </ul>
         </nav>
-        </nav>
         <!-- Inicio da área de trabalho -->
         <div class="content p-1">
             <div class="list-group-item">
                 <div class="d-flex">
                     <div class="mr-auto p-2">
-                        <h2 class="display-4 titulo">Editar Usuário</h2>
+                        <h2 class="display-4 titulo">Listar Termômetros</h2>
                     </div>
-                    <div class="p-2">
-                        <span class="d-none d-md-block">
-                            <a href="listarUsuario.php" class="btn btn-outline-primary btn-sm">Listar</a>
-                            <a href="#" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#apagarRegistro">Apagar</a>
-                        </span>
-                        <div class="dropdown d-block d-md-none">
-                            <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="acaoListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Ação
+                    <a href="addTermometro.php">
+                        <div class="p-2">
+                            <button class="btn btn-outline-success btn-sm">
+                                Cadastrar
                             </button>
-                            <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="acaoListar">
-                                <a class="dropdown-item" href="listarUsuario.php">Listar</a>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#apagarRegistro">Apagar</a>
-                            </div>
                         </div>
-                    </div>
-                </div><hr />
-                <form action="editar/editarUsuario.php" method="post">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label><span class="text-danger">*</span> CPF</label>
-                            <input readonly value="<?php echo $cpf?>" name="cpf" type="text" class="form-control" id="cpf" placeholder="Somente Números" required onkeypress="$(this).mask('000.000.000-00');" />
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label>Senha</label>
-                            <input name="senha" type="password" class="form-control" id="senha" placeholder="Deixe em branco para não alterar">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label>Confirmação</label>
-                            <input name="confirma" type="password" class="form-control" id="confimaSenha" placeholder="Informe a Mesma Senha" />
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label><span class="text-danger">*</span> Nome</label>
-                            <input value="<?php echo $nome?>" name="nome" type="text" class="form-control" id="nome" placeholder="Somente o Primeiro Nome" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label>Sobrenome</label>
-                            <input value="<?php echo $sobnome?>" name="sobrenome" type="text" class="form-control" id="sobrenome" placeholder="Restante do Nome">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label>
-                            <span class="text-danger">*</span> Permissão</label>
-                            <select name="nivel" id="permissao" class="form-control" required>
-                                <?php
-                                $sql = "SELECT cod, descricao FROM nivel_acesso";
-                                $termometros = mysqli_query($con, $sql);
-                                while($row = mysqli_fetch_assoc($termometros))
-                                {
-                                    $id_nivel = $row['cod'];
-                                    if($nivel != $id_nivel)
-                                    {
-                                        echo '<option value="' . $id_nivel . '">' . $row['descricao'] . '</option>';
-                                    }
-                                    else
-                                    {
-                                        echo '<option selected value="' . $id_nivel . '">' . $row['descricao'] . '</option>';
-                                    }
-                                }
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <p>
-                        <span class="text-danger">*</span>
-                        Campo Obrigatório
-                    </p>
-                    <button type="submit" class="btn btn-success">Atualizar</button>
-                </form>
+                    </a>
+                </div><!--
+                <div class="alert alert-success" role="alert">
+                    Termômetro apagado com sucesso!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>-->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="d-nome d-sm-table-cell">Código</th>
+                                <th>Descrição</th>
+                                <th>Temp Min</th>
+                                <th>Temp Max</th>
+                                <th>Umid Min</th>
+                                <th>Umid Max</th>
+                                <th>Status</th>
+                                <th class="text-center">Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <?php
+                            while($row = mysqli_fetch_assoc($resultado))
+                            {
+                                $um = $row['u_minimo'];
+                                $uM = $row['u_maximo'];
+                            ?>
+                                
+                                <tr>
+                                    <td><?php $id = $row['cod']; echo $id ?></td>
+                                    <td><?php echo $row['descricao']?> </td>
+                                    <td><?php echo $row['t_minimo'] . '°C' ?> </td>
+                                    <td>
+                                        <?php echo $row['t_maximo'] . '°C' ?>
+                                    </td>
+                                    <td>
+                                        <?php if($um != NULL) echo $row['u_minimo'] . '%'; else echo '--'?>
+                                    </td>
+                                    <td>
+                                        <?php if($uM != NULL) echo $row['u_maximo'] . '%'; else echo '--' ?>
+                                    </td>
+                                    <td><?php echo $row['situacao'] ?> </td>
+                                    <td class="text-center">
+                                        <span class="d-none d-md-block">
+                                            <a href="editarTermometro.php?id=<?php echo $id ?>" class="btn btn-outline-primary btn-sm">Editar</a>
+                                            <a href="apagar/excluirTermometro.php?id=<?php echo $id ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Tem certeza da exclusão deste Termômetro?')">Apagar</a>
+                                        </span>
+                                        <div class="dropdown d-block d-md-none">
+                                            <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="acaoListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Ação
+                                            </button>
+                                            <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="acaoListar">
+                                                <a class="dropdown-item" href="editarTermometro.php?id=<?php echo $id ?>">Editar</a>
+                                                <a class="dropdown-item" href="apagar/excluirTermometro.php?id=<?php echo $id ?>" onclick="return confirm('Tem certeza da exclusão deste Termômetro?')"> Apagar </a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr><?php
+                            }
+                            ?>   
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- Fim da área de trabalho -->
     </div>
-    <!-- Mensagem de confirmar apagar -->
-    <div class="modal fade" id="apagarRegistro" tabindex="-1" aria-labelledby="apagarRegistroLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title" id="exampleModalLabel">EXCLUIR USUÁRIO</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Tem certeza que deseja excluir este usuário?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                    <button type="button" class="btn btn-danger">Sim</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="js/jquery-3.2.1.slim.min.js"></script>
-    <script src="js/jquery.mask.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/dashboard.js"></script>
